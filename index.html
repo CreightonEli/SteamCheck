@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steam API Test</title>
+    <link rel="stylesheet" href="/dist/style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="login-pane">
+        <input type="text" name="steamID" id="steamID-el" placeholder="SteamID">
+        <input type="password" name="key" id="key-el" placeholder="Steam API Key">
+        <input type="submit" value="Submit" id="login-btn" onclick="assignValue()">
+        <span id="error-el"></span>
+    </div>
+    <div class="container">
+        <section>
+            <h1>Games</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et ad provident dolorum accusamus hic porro neque facilis ab expedita optio sed doloribus, adipisci esse debitis error, harum, id atque at.</p>
+            <span id="games-el"></span>
+        </section>
+    </div>
+</body>
+</html>
