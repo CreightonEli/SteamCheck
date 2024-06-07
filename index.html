@@ -1,24 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta Data -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Steam API Test</title>
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="/dist/style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <!-- JavaScript -->
     <script src="script.js" defer></script>
 </head>
 <body>
     <div class="login-pane">
+        <p>Welcome<span class="user-welcome">...</span></p>
         <input type="text" name="steamID" id="steamID-el" placeholder="SteamID">
         <input type="password" name="key" id="key-el" placeholder="Steam API Key">
-        <input type="submit" value="Submit" id="login-btn" onclick="assignValue()">
+        <input type="submit" value="Submit" id="login-btn" onclick="getOwnedGames()">
         <span id="error-el"></span>
     </div>
     <div class="container">
         <section>
-            <h1>Games</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et ad provident dolorum accusamus hic porro neque facilis ab expedita optio sed doloribus, adipisci esse debitis error, harum, id atque at.</p>
-            <span id="games-el"></span>
+            <h1>Games Library</h1>
+            <ul id="games-el"></ul>
         </section>
     </div>
 </body>
