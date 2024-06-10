@@ -11,7 +11,10 @@ section {
     margin: 0 auto;
     padding: 1px 10px;
     color: var(--ivory);
+    background-color: var(--onyx);
 }
+
+// classes n stuff
 
 // login pane elements
 .login-pane {
@@ -30,9 +33,14 @@ section {
 .login-pane.hidden {
     transform: translate(0, -300px);
 }
+.login-pane img {
+    border-radius: 6px;
+    border: 2px solid var(--thistle);
+    margin: 0 auto 8px;
+    width: 64px;
+}
 .login-pane p {
-    text-align: left;
-    margin: 0 0 0 20px;
+    margin: 0 auto 0;
     color: var(--ivory);
 }
 #steamID-el, #key-el, #login-btn{
@@ -62,6 +70,7 @@ section {
     transition: 900ms cubic-bezier(.68,-0.55,.27,1.55);
 }
 
+// section container
 .container {
     opacity: 0;
     background-color: var(--raisin-black);
@@ -73,6 +82,16 @@ section {
     transform: translate(0, -268px);
 }
 
+// user profile
+.username-el {
+    font-size: 24pt;
+    font-weight: 300;
+}
+.status-el {
+    font-size: 14pt;
+}
+
+// game library list
 #games-el {
     list-style-type: none;
     padding-left: 0;
@@ -86,15 +105,30 @@ section {
     border-radius: 5px;
     width: 100%;
 }
+#games-el li:hover {
+    cursor: pointer;
+}
 #games-el li img {
     border-radius: 4px;
 }
 #games-el li p {
     display: inline;
-    margin: 3px 0 3px 12px;
+    margin: 3px auto 3px 12px;
     font-size: 16pt;
     position: relative;
     white-space: nowrap;
-    // display:flex;
     overflow: hidden;
+}
+#games-el li .icon-border {
+    border-right: solid 2px var(--ultra-violet);
+    margin: 0 0 0 auto;
+}
+#games-el li i {
+    color: gray;
+    padding: 0 12px;
+    font-size: 28pt;
+    transition: 355ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+#games-el li:hover i {
+    transform: rotate(-90deg);
 }

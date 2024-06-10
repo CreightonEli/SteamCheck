@@ -7,6 +7,8 @@
     <title>Steam API Test</title>
     <!-- Stylesheet -->
     <link rel="stylesheet" href="/dist/style.css">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,15 +18,21 @@
 </head>
 <body>
     <div class="login-pane">
+        <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/b5/b5bd56c1aa4644a474a2e4972be27ef9e82e517e_medium.jpg" alt="user avatar" class="welcome-avatar-el">
         <p>Welcome<span class="user-welcome">...</span></p>
         <input type="text" name="steamID" id="steamID-el" placeholder="SteamID">
         <input type="password" name="key" id="key-el" placeholder="Steam API Key">
-        <input type="submit" value="Submit" id="login-btn" onclick="getOwnedGames()">
+        <input type="submit" value="Submit" id="login-btn" onclick="login()">
         <span id="error-el"></span>
     </div>
     <div class="container">
         <section>
-            <h1>Games Library</h1>
+            <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/b5/b5bd56c1aa4644a474a2e4972be27ef9e82e517e_full.jpg" alt="full user avatar" class=".avatar-full-el">
+            <h1><span class="username-el">User</span></h1>
+            <p><span class="status-el">Unknown</span></p>
+        </section>
+        <section>
+            <h2>Steam Library</h2>
             <ul id="games-el"></ul>
         </section>
     </div>
