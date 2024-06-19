@@ -1,6 +1,55 @@
-@media (min-width: 812px) {
+// desktop
+@media (min-width: 941px) {
     section {
         margin: 0px 100px;
-        padding: 1px 16px 0 10px;
+        padding: 0px 16px 10px 10px;
+    }
+}
+// tablet
+@media (max-width: 940px) {
+    section.user-profile {
+        margin: 0 auto;
+        padding: 1px 10px;
+    }
+    .user-profile {
+        height: 340px;
+    }
+    .user-profile .background-img {
+        transform: scale(4);
+    }
+    .profile-info-container {
+        flex-direction: column;
+        margin: 0;
+    }
+    .profile-info {
+        margin: 0;
+    }
+    .bg-image {
+        transform: translateX(103px) scale(1.04);
+    }
+    .fg-image {
+        left: 12px;
+    }
+}
+// smart phone
+@media (max-width: 740px) {
+    .item-header {
+        display: none;
+    }
+    .bg-image {
+        transform: translateX(0);
+    }
+    .fg-image {
+        left: 0; 
+        right: 0; 
+        margin-left: auto; 
+        margin-right: auto; 
+        width: 292px;
+    }
+    #wishlist-el li {
+        white-space: wrap;
+    }
+    #wishlist-el li .item-info {
+        display: block;
     }
 }

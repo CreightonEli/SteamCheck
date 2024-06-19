@@ -17,24 +17,34 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="login-pane">
-        <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/b5/b5bd56c1aa4644a474a2e4972be27ef9e82e517e_medium.jpg" alt="user avatar" class="welcome-avatar-el">
-        <p>Welcome<span class="user-welcome">...</span></p>
-        <input type="text" name="steamID" id="steamID-el" placeholder="SteamID">
-        <input type="password" name="key" id="key-el" placeholder="Steam API Key">
-        <input type="submit" value="Submit" id="login-btn" onclick="login()">
-        <span id="error-el"></span>
+    <div class="login-container">
+        <div class="login-pane">
+            <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/b5/b5bd56c1aa4644a474a2e4972be27ef9e82e517e_medium.jpg" alt="user avatar" class="welcome-avatar-el">
+            <p>Welcome<span class="user-welcome">...</span></p>
+            <input type="text" name="steamID" id="steamID-el" placeholder="SteamID">
+            <input type="password" name="key" id="key-el" placeholder="Steam API Key">
+            <input type="submit" value="Submit" id="login-btn" onclick="login()">
+            <span id="error-el"></span>
+        </div>
     </div>
     <div class="container">
-        <section>
-            <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/b5/b5bd56c1aa4644a474a2e4972be27ef9e82e517e_full.jpg" alt="full user avatar" class=".avatar-full-el">
-            <h1><span class="username-el">User</span></h1>
-            <p><span class="status-el">Unknown</span></p>
+        <section class="user-profile">
+            <img class="background-img" src="https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/2640280/c8a165b9cf7530df7d5ed8c5aff2c87e2c5bf346.jpg">
+            <div class="profile-info-container">
+                <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/b5/b5bd56c1aa4644a474a2e4972be27ef9e82e517e_full.jpg" alt="full user avatar" class="avatar-full-el">
+                <div class="profile-info">
+                    <h1><span class="username-el">User</span></h1>
+                    <p><span class="status-el">Unknown</span></p>
+                </div>
+            </div>
         </section>
         <section>
+            <ol id="wishlist-el"></ol>
+        </section>
+        <!-- <section>
             <h2>Steam Library</h2>
             <ul id="games-el"></ul>
-        </section>
+        </section> -->
     </div>
 </body>
 </html>

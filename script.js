@@ -24,8 +24,10 @@ const errorEl = document.querySelector("#error-el")
 
 /// body elements
 const pageContainer = document.querySelector(".container")
+const avatarFullEl = document.querySelector(".avatar-full-el")
 const usernameEl = document.querySelector(".username-el")
 const statusEl = document.querySelector(".status-el")
+const wishlistEl = document.querySelector("#wishlist-el")
 const gamesEl = document.querySelector("#games-el")
 
 function getPlayerSummaries() {
@@ -61,17 +63,15 @@ function getPlayerSummaries() {
 
 function getOwnedGames() {
     let ownedGamesURL = "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?format=json&include_appinfo=true&steamid=" + steamID + "&key=" + key
-    console.log(wishlist)
 
     fetch(ownedGamesURL)
         .then(response => response.json())
         .then(data => {
             // log data received
-            console.log(data)
+            // console.log(data)
 
             // fill in steam library section
             gameCount = data.response.game_count
-            console.log("Total number of games: " + gameCount)
             if (gameCount in window === true) {
                 gamesEl.innerHTML = "<h3>No games found :(</h3>"
             }
@@ -112,6 +112,67 @@ function getWishlist() {
                 const item = data[appID]
                 wishlist.push(item)
             }
+            // Sort the array by priority (ascending)
+            wishlist.sort((a, b) => a.priority - b.priority);
+            
+            // Output to page
+            console.log(wishlist)
+            for (let i = 0; i < wishlist.length; i++) {
+                if (wishlist[i].type === "Game" || wishlist[i].type === "DLC") {
+                    // create subheader
+                    let subheader = ''
+                    let currentAppID = wishlist[i].capsule.split('/apps/')[1].split('/')[0];
+                    let steamStoreURL = 'https://store.steampowered.com/app/' + currentAppID 
+
+                    // add platform info to subheader
+                    if (wishlist[i].win == 1) {// windows
+                        subheader += '<i class="ph ph-windows-logo"></i>'
+                    }
+                    if (wishlist[i].mac == 1) {// mac
+                        subheader += '<i class="ph ph-apple-logo"></i>'
+                    }
+                    if (wishlist[i].linux == 1) {// linux
+                        subheader += '<i class="ph ph-linux-logo"></i>'
+                    }
+                    else {}
+
+                    // add release date string to subheader
+                    subheader += ' | ' + wishlist[i].release_string
+
+                    // add rating string to subheader
+                    if (wishlist[i].review_desc == "Overwhelmingly Positive" || wishlist[i].review_desc == "Very Positive" || wishlist[i].review_desc == "Mostly Positive" || wishlist[i].review_desc == "Positive") {// Positive descriptions
+                        subheader += ' | <span style="color: var(--positive);">' + wishlist[i].review_desc.toUpperCase() + '</span>'
+                    }
+                    else if (wishlist[i].review_desc == "Mixed") { // Mixed
+                        subheader += ' | <span style="color: var(--mixed);">' + wishlist[i].review_desc.toUpperCase() + '</span>'
+                    }
+                    else if (wishlist[i].review_desc == "No user reviews") { // No reviews
+                        subheader += ' | <span style="color: var(--no-reviews);">' + wishlist[i].review_desc.toUpperCase() + '</span>'
+                    }
+                    else { // Negative
+                        subheader += ' | <span style="color: var(--negative);">' + wishlist[i].review_desc.toUpperCase() + '</span>'
+                    }
+
+                    // add tags to subheader
+                    subheader += '<div class="tag-container">'
+                    for (let j = 0; j < 5; j++) {
+                        let tagURL = 'https://store.steampowered.com/tags/en/' + wishlist[i].tags[j] + '/'
+                        subheader += '<p class="tag"><a href="' + tagURL + '">' + wishlist[i].tags[j] + '</a></p>'
+                    }
+                    subheader += '</div>'
+
+                    // create list item
+                    let listItem = document.createElement("li")
+                    listItem.classList.add("wishlist-item")
+
+                    // assign values to created list item
+                    listItem.innerHTML = '<div class="img-container"><img src="' + wishlist[i].capsule + '" class="bg-image"><img src="' + wishlist[i].capsule + '" class="fg-image"><div class="item-header"><h3><a href="' + steamStoreURL + '">' + wishlist[i].name + '</a></h3><div class="subheader"><p>' + subheader + '</p></div></div></div><div class="item-info"><span class="name-el"><a href="' + steamStoreURL + '">' + wishlist[i].name + '</a></span><div class="subheader">' + subheader + '</div></div>'
+
+                    // add current list item to list
+                    wishlistEl.appendChild(listItem)
+                }
+                else {}
+            }
         })
         .catch(error => {});
 
@@ -139,13 +200,13 @@ function login() {
         loginPane.classList.add("hidden")
 
         // fill in user profile section
+        avatarFullEl.src = user.avatarfull // user avatar
         usernameEl.textContent = username // username
         statusEl.textContent = userStatus // user's online status
 
         // call functions
         getWishlist()
-        getOwnedGames()
-        console.log(wishlist)
+        // getOwnedGames()
     }    
 }
 
@@ -153,3 +214,9 @@ function login() {
 oninput = (event) => {
     getPlayerSummaries()
 };
+
+// function listOpen() {
+//     let wishlistItem = document.querySelector(".wishlist-item")
+//     console.log(wishlistItem)
+//     wishlistItem.classList.add("open")
+// }
