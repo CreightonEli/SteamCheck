@@ -34,7 +34,7 @@ const gamesEl = document.querySelector("#games-el")
 function getPlayerSummaries() {
     steamID = steamIDEl.value
     key = keyEl.value;
-    let playerSummaryURL = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" + key + "&steamids=" + steamID
+    let playerSummaryURL = "https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" + key + "&steamids=" + steamID
     
     fetch(playerSummaryURL)
         .then(response => response.json())
@@ -83,7 +83,7 @@ async function getSteamPrices(currentAppID) {
     }
 }
 function getOwnedGames() {
-    let ownedGamesURL = "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?format=json&include_appinfo=true&steamid=" + steamID + "&key=" + key
+    let ownedGamesURL = "https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?format=json&include_appinfo=true&steamid=" + steamID + "&key=" + key
 
     fetch(ownedGamesURL)
         .then(response => response.json())
@@ -103,7 +103,7 @@ function getOwnedGames() {
                     let imgIconHash = data.response.games[i].img_icon_url
 
                     // make image URL
-                    let imgURL = "http://media.steampowered.com/steamcommunity/public/images/apps/" + appID + "/" + imgIconHash + ".jpg"
+                    let imgURL = "https://media.steampowered.com/steamcommunity/public/images/apps/" + appID + "/" + imgIconHash + ".jpg"
 
                     // create list item
                     let listItem = document.createElement("li")
