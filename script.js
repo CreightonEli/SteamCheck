@@ -13,6 +13,7 @@ let gameCount = 0
 let gameLibrary = ""
 let gameNames = []
 let wishlist = []
+let steamPrice = '$0.00'
 
 /// login elements
 const loginPane = document.querySelector(".login-pane")
@@ -39,7 +40,6 @@ function getPlayerSummaries() {
         .then(response => response.json())
         .then(data => {
             user = data.response.players[0]
-            console.log(user)
 
             // pull user data to global variables
             username = user.personaname
@@ -61,6 +61,27 @@ function getPlayerSummaries() {
 
 }
 
+async function getSteamPrices(currentAppID) {
+    let priceURL = 'https://store.steampowered.com/api/appdetails?appids=' + currentAppID + '&cc=us&filters=price_overview'
+  
+    try {
+        const response = await fetch(priceURL)
+        const data = await response.json()
+
+        let priceString = ""
+
+        priceString = data[currentAppID].data.price_overview.final_formatted
+
+        if (data[currentAppID].data.price_overview.initial_formatted != ""){
+            priceString += '<span class="initial-price">' + data[currentAppID].data.price_overview.initial_formatted + '</span>'
+        }
+
+        return priceString
+
+    } catch (error) {
+        return "No Price Data"
+    }
+}
 function getOwnedGames() {
     let ownedGamesURL = "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?format=json&include_appinfo=true&steamid=" + steamID + "&key=" + key
 
@@ -68,7 +89,6 @@ function getOwnedGames() {
         .then(response => response.json())
         .then(data => {
             // log data received
-            // console.log(data)
 
             // fill in steam library section
             gameCount = data.response.game_count
@@ -103,7 +123,7 @@ function getOwnedGames() {
     
 }
 
-function getWishlist() {
+async function getWishlist() {
     let wishlistURL = "https://store.steampowered.com/wishlist/profiles/" + steamID + "/wishlistdata"
     fetch(wishlistURL)
         .then(response => response.json())
@@ -116,13 +136,12 @@ function getWishlist() {
             wishlist.sort((a, b) => a.priority - b.priority);
             
             // Output to page
-            console.log(wishlist)
             for (let i = 0; i < wishlist.length; i++) {
                 if (wishlist[i].type === "Game" || wishlist[i].type === "DLC") {
                     // create subheader
                     let subheader = ''
-                    let currentAppID = wishlist[i].capsule.split('/apps/')[1].split('/')[0];
-                    let steamStoreURL = 'https://store.steampowered.com/app/' + currentAppID 
+                    let currentAppID = wishlist[i].capsule.split('/apps/')[1].split('/')[0]
+                    let steamStoreURL = 'https://store.steampowered.com/app/' + currentAppID
 
                     // add platform info to subheader
                     if (wishlist[i].win == 1) {// windows
@@ -160,16 +179,25 @@ function getWishlist() {
                         subheader += '<p class="tag"><a href="' + tagURL + '">' + wishlist[i].tags[j] + '</a></p>'
                     }
                     subheader += '</div>'
+                    
+                    // get price info
+                    getSteamPrices(currentAppID)
+                        .then(steamPrice => {
+                            // create list item
+                            let listItem = document.createElement("li")
+                            listItem.classList.add("wishlist-item")
 
-                    // create list item
-                    let listItem = document.createElement("li")
-                    listItem.classList.add("wishlist-item")
+                            // assign values to created list item                        
+                            let listItemHtml = '<div class="img-container"><img src="' + wishlist[i].capsule + '" class="bg-image"><img src="' + wishlist[i].capsule + '" class="fg-image"><div class="item-header"><h3><a href="' + steamStoreURL + '">' + wishlist[i].name + '</a></h3><div class="subheader"><p>' + subheader + '</p></div></div></div><div class="item-info"><span class="name-el"><a href="' + steamStoreURL + '">' + wishlist[i].name + '</a></span><div class="subheader">' + subheader + '</div><div class="prices-container"><div class="price-card"><a href="' + steamStoreURL + '" target="_blank"><img class="steam-logo" src="https://community.akamai.steamstatic.com/public/shared/images/header/logo_steam.svg?t=962016"></a><p><span class="steam-price-el">' + steamPrice + '</span></p></div><div class="price-card"><a href="https://www.g2a.com/search?query=' + wishlist[i].name + '" target="_blank"><img class="g2a-logo" src="https://www.g2a.com/static/assets/images/logo_g2a_white.svg"></a><div class="btn-container"><a href="https://www.g2a.com/search?query=' + wishlist[i].name + '" target="_blank"><button class="price-check-btn">Check Price</button></a></div></div></div></div>'
+                            
+                            if (steamPrice === "No Price Data") {} // checks for price data
+                            else {
+                                listItem.innerHTML = listItemHtml
 
-                    // assign values to created list item
-                    listItem.innerHTML = '<div class="img-container"><img src="' + wishlist[i].capsule + '" class="bg-image"><img src="' + wishlist[i].capsule + '" class="fg-image"><div class="item-header"><h3><a href="' + steamStoreURL + '">' + wishlist[i].name + '</a></h3><div class="subheader"><p>' + subheader + '</p></div></div></div><div class="item-info"><span class="name-el"><a href="' + steamStoreURL + '">' + wishlist[i].name + '</a></span><div class="subheader">' + subheader + '</div></div>'
-
-                    // add current list item to list
-                    wishlistEl.appendChild(listItem)
+                                // add current list item to list
+                                wishlistEl.appendChild(listItem)
+                            }
+                    });
                 }
                 else {}
             }
@@ -217,6 +245,5 @@ oninput = (event) => {
 
 // function listOpen() {
 //     let wishlistItem = document.querySelector(".wishlist-item")
-//     console.log(wishlistItem)
 //     wishlistItem.classList.add("open")
 // }

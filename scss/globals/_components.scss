@@ -12,7 +12,7 @@ body {
 
 section {
     margin: 0 auto;
-    padding: 1px 13px 13px 10px;
+    padding: 0 13px 13px 10px;
     color: var(--ivory);
     background-color: var(--onyx);
 }
@@ -248,6 +248,12 @@ p.tag:hover {
 }
 #wishlist-el li .item-info {
     margin: 12px 10px 24px;
+    padding: 0px 8px;
+}
+#wishlist-el li .item-info .name-el {
+    display: none;
+}
+#wishlist-el li .item-info .subheader{
     display: none;
 }
 #wishlist-el li.open .item-info{
@@ -256,6 +262,73 @@ p.tag:hover {
 
 .name-el {
     font-size: 16pt;
+}
+
+.prices-container {
+    display: flex;
+    text-align: center;
+    flex-wrap: wrap;
+}
+.price-card {
+    margin: 12px auto 0;
+    padding: 22px 0 0;
+    color: var(--price-color);
+    background-color: var(--dark-onyx);
+    border: 1px solid var(--onyx);
+    font-size: 14pt;
+    font-weight: 800;
+    border-radius: 8px;
+    min-width: 275px;
+    height: 104px;
+}
+.price-card img {
+    height: 28px;
+}
+.price-card img.steam-logo {
+    margin: 0 -20px 0 0px;
+    filter: drop-shadow(0 0 0 var(--ultra-violet));
+    transition: 355ms;
+}
+.price-card a:hover img.steam-logo {
+    filter: drop-shadow(0 0 6px var(--ultra-violet));
+}
+.price-card img.g2a-logo {
+    margin: 0 auto;
+    filter: drop-shadow(0 0 0 var(--ultra-violet));
+    transition: 355ms;
+}
+.price-card a:hover img.g2a-logo {
+    filter: drop-shadow(0 0 6px var(--ultra-violet));
+}
+.price-card .initial-price {
+    font-size: 9pt;
+    color: var(--no-reviews);
+    margin: 0 0 -14px 0px;
+    display: block;
+}
+.price-card .btn-container {
+    margin: 18px auto 0;
+    max-width: 108px;
+}
+.price-card .price-check-btn {
+    margin: 0;
+    padding: 1px 10px;
+    color: var(--thistle);
+    background-color: var(--onyx);
+    border: 1px solid var(--ultra-violet);
+    border-radius: 1em;
+    font-size: 11pt;
+    font-weight: 400;
+    font-family: inherit;
+    transition: 355ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.price-card .price-check-btn:hover {
+    cursor: pointer;
+    color: var(--ivory);
+    transform: scale(1.1);
+}
+.price-card .price-check-btn:active {
+    transform: scale(1);
 }
 
 // game library list

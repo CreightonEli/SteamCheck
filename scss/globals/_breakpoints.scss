@@ -49,7 +49,10 @@
     #wishlist-el li {
         white-space: wrap;
     }
-    #wishlist-el li .item-info {
+    #wishlist-el li .item-info .name-el {
+        display: block;
+    }
+    #wishlist-el li .item-info .subheader {
         display: block;
     }
 }
